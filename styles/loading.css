@@ -1,0 +1,47 @@
+#loading {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--cor-de-fundo-loading);
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+
+#loading > img {
+    transition: .5s;
+    height: 20%;
+    z-index: 5;
+}
+
+.open_load {
+    animation: openLoad .5s forwards;
+}
+
+@keyframes openLoad {
+    from {
+        border-radius: 50%;
+        transform: scale(0.000001);
+    }
+
+    to {
+        border-radius: none;
+        transform: scale(1);
+    }
+}
+
+.close_load {
+    animation: closeLoad .5s forwards;
+}
+
+@keyframes closeLoad {
+    from {
+        border-radius: none;
+    }
+
+    to {
+        border-radius: 50%;
+        transform: scale(0.000001);
+    }
+}

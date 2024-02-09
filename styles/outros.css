@@ -1,0 +1,16 @@
+/* ---------- Caixas fora do box central ---------- */
+.caixaBtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto 20px auto;
+}
+
+#nomeDoArquivo {
+    padding: 5px;
+    height: 60%;
+    width: 60%;
+    font-size: 100%;
+    border-radius: 5px;
+}

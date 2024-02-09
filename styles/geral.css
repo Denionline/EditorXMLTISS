@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Engagement&family=Fira+Sans:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+/* Estilos do Objeto do XML */
+@import 'caixaGuias.css';
+@import 'caixaProcedimentos.css';
+@import 'caixaDespesas.css';
+@import 'caixaTotais.css';
+@import 'caixaInfo.css';
+@import 'caixaXmls.css';
+@import 'caixaBtn.css';
+@import 'caixaPrincipal.css';
+
+/* Estilos dos ícones e botões */
+@import 'icons.css';
+@import 'btn.css';
+
+/* Estilos dos inputs e das abas */
+@import 'input_insereXML.css';
+@import 'input_checkboxGuia.css';
+@import 'abaItens.css';
+
+/* Estilos dos Pop-Up's */
+@import 'pop-up_confirmaDeletaObj.css';
+@import 'pop-up_confirmaDeleteGuiasSelecionadas.css';
+@import 'pop-up_xmlGerado.css';
+@import 'pop-up_validadorXML.css';
+
+/* Outros estilos */
+@import 'loading.css';
+@import 'opcoesAdicionais.css';
+@import 'tema.css';
+@import 'menuSuperiorDireita.css';
+
+:root {
+    /* ------ Cores 1------ */
+    --cor-de-fundo-body: #2C3532;
+    --cor-de-fundo-box: #D2E8E3;
+    --cor-de-fundo-box-top: var(--cor-de-fundo-box);
+    --cor-de-fundo-guia: #0F6466;
+    --cor-de-fundo-resumo: var(--cor-de-fundo-guia);
+    --cor-de-fundo-resumo-itens: white;
+    --cor-de-fundo-detalhes: rgba(249, 174, 108, 0.663);
+    --cor-de-fundo-procs: #D8B08C;
+    --cor-de-fundo-outras: #FFCB9A;
+    --cor-de-fundo-xmls: transparent;
+    --cor-de-fundo-tema: rgb(0, 0, 0);
+    --cor-de-texto-tema-caixa: rgb(255, 255, 255);
+
+    --cor-de-texto-box-top: rgb(0, 0, 0);
+    --cor-de-texto-guia-titulo: rgb(255, 255, 255);
+    --cor-de-texto-resumo: rgb(0, 0, 0);
+    --cor-de-texto-detalhes-titulo: rgb(0, 0, 0);
+    --cor-de-texto-procs: rgb(0, 0, 0);
+    --cor-de-texto-outras: rgb(0, 0, 0);
+    --cor-de-texto-totais: rgb(255, 255, 255);
+    --cor-de-texto-info: rgb(0, 0, 0);
+    --cor-de-texto-tema: rgb(255, 255, 255);
+
+    /* --cor-de-fundo-body: #0D0D0D;
+    --cor-de-fundo-box: #595959;
+    --cor-de-fundo-box_top: var(--cor-de-fundo-box);
+    --cor-de-fundo-guia: #0D0D0D;
+    --cor-de-fundo-resumo: var(--cor-de-fundo-guia);
+    --cor-de-fundo-resumo-itens: rgb(255, 255, 255);
+    --cor-de-fundo-detalhes: transparent;
+    --cor-de-fundo-procs: #595959;
+    --cor-de-fundo-outras: #A6A6A6; */
+
+    --cor-de-fundo-loading: #173326;
+
+    --cor-de-fundo-btnToXML: linear-gradient(rgb(0, 0, 150), rgba(0, 0, 255, 0.8));
+    --cor-de-fundo-btnToDeleteObj: linear-gradient(rgba(150, 0, 0), rgba(255, 0, 0, 0.8));
+
+    --cor-de-fundo-pop-up-xmlGerado: rgba(0, 0, 0, 0.799);
+    --cor-de-fundo-pop-up-xmlGerado-baixarXML: linear-gradient(rgb(8, 92, 0), rgba(0, 255, 26, 0.759));
+    --cor-de-fundo-pop-up-xmlGerado-salvarXML: linear-gradient(rgb(8, 0, 92), rgba(0, 26, 255, 0.759));
+    --cor-de-fundo-pop-up-xmlGerado-encaminhaParaValidador: linear-gradient(rgb(122, 55, 0), rgba(255, 115, 0, 0.797));
+
+    --cor-de-fundo-guia-checkbox: white;
+    --cor-de-fundo-guia-checkbox-checked: white;
+    --cor-de-fundo-guia-checkbox-visto-checked: rgb(0, 200, 0);
+
+    --cor-de-fundo-opcoesAdicionais: rgba(255, 255, 255, 0.2);
+
+    /* ------ Fontes ------ */
+    --font-titulos: 'Fira Sans', sans-serif;
+    --font-textos: 'Mulish', sans-serif;
+    --font-numeros: 'Noto Sans TC', sans-serif;
+}
+
+* {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    outline: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: var(--cor-de-fundo-body);
+    min-width: 830px;
+    overflow: hidden;
+} 
+.bloqueio_pop-up {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.300);
+    z-index: 1;
+}

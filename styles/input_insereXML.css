@@ -1,0 +1,15 @@
+/* ---------- Input onde será inserido o XML ----------*/
+.caixaInputXML{
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.547);
+    transition: .3s;
+    margin-bottom: 10px;
+    width: 80%;
+    transition: .5s;
+}
+#fileXML{
+    font-size: 1.7em;
+    cursor: pointer;
+}

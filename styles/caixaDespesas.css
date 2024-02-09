@@ -1,0 +1,64 @@
+/* ---------- Outras despesas da Guia ---------- */
+/* ---------- Cabeçalho ---------- */
+.box_body_guia_detalhes_outras_titulo{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: transparent;
+    font-family: var(--font-textos);
+    padding: 5px;
+    position: relative;
+    user-select: none;
+    color: var(--cor-de-texto-detalhes-titulo);
+}
+.box_body_guia_detalhes_outras_cabecalho_despesa{
+    font-family: var(--font-textos);
+    font-weight: bold;
+    color: var(--cor-de-texto-outras);
+}
+/* ---------- Grid Cabeçalho e Despesas ---------- */
+.box_body_guia_detalhes_outras_cabecalho_despesa, .box_body_guia_detalhes_outras_despesa{
+    display: grid;
+    grid-template-columns: 10% 30% 15% 10% 5% 5% 10% 10% 5%;
+    background: transparent;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+}
+
+/* ---------- Despesas ---------- */
+.box_body_guia_detalhes_outras{
+    display: flex;
+    flex-direction: column;
+    background: var(--cor-de-fundo-outras);
+}
+.box_body_guia_detalhes_outras_despesa_nome{
+    text-align: start;
+    font-family: var(--font-textos);
+}
+.box_body_guia_detalhes_outras_despesa_itens{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-family: var(--font-numeros);
+    width: 100%;
+}
+.box_body_guia_detalhes_outrasDespesas{
+    box-shadow: inset 0px -5px 5px 0 rgb(0, 0, 0, 0.200);
+}
+.box_body_guia_detalhes_outras_despesa{
+    border-top: 1px solid black;
+}
+.box_body_guia_detalhes_outras_despesa:last-child{
+    padding-bottom: 10px;
+}
+.box_body_guia_detalhes_outras_despesa_item{
+    font-family: var(--font-numeros);
+    text-align: center;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    color: var(--cor-de-texto-outras);
+}
+

@@ -1,0 +1,126 @@
+.caixaXmls {
+    background: var(--cor-de-fundo-xmls);
+    display: none;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+    padding: 10px;
+    height: 60%;
+    width: 80%;
+    gap: 5px;
+    overflow: auto;
+}
+
+.caixaXmls::-webkit-scrollbar {
+    width: 10px;
+}
+
+.caixaXmls::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.caixaXmls::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.caixaXmls::-webkit-scrollbar-thumb:hover {
+    background: rgb(10, 10, 10);
+}
+
+.caixaXmls_inserir {
+    position: absolute;
+    right: 10%;
+    top: 16%;
+    font-weight: bold;
+    color: rgb(0, 255, 0);
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+    user-select: none;
+}
+
+.caixaXmls_inserir:hover {
+    transform: scale(1.06);
+}
+
+.caixaXmls_inserir:active {
+    transform: scale(0.9);
+}
+
+.caixaXmls_xml {
+    background: white;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 98%;
+    height: 20px;
+    padding: 5px;
+    border-radius: 8px;
+    transition: .3s all;
+    cursor: pointer;
+}
+
+.caixaXmls_xml_aberto {
+    height: 100px;
+}
+
+.caixaXmls_xml:hover {
+    transform: scale(1.01);
+}
+
+.caixaXmls_xml_label {
+    width: 85%;
+    height: 20px;
+    cursor: pointer;
+}
+
+.caixaXmls_xml_descricao {
+    width: auto;
+}
+
+.caixaXmls_xml>input {
+    user-select: none;
+    cursor: pointer;
+    margin-left: 3px;
+}
+
+.caixaXmls_xml>img {
+    display: block;
+    position: static;
+    height: 18px;
+    cursor: pointer;
+}
+
+.caixaXmls_xml_info {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 0px;
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
+    transition: .3s all ease-in-out;
+    font-size: 0.8em;
+}
+
+.caixaXmls_xml_info_aberto {
+    height: 50px;
+}
+
+.caixaXmls_xml_info > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.caixaXmls_xml_info_descricao{
+    font-family: var(--font-titulos);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.caixaXmls_xml_info_valor{
+    font-family: var(--font-numeros);
+    margin-top: 5px;
+}

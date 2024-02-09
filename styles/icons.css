@@ -1,0 +1,170 @@
+
+/* ---------- Ícones de pincel ---------- */
+.icon-pencil{
+    display: none;
+    position: absolute;
+    height: 18px;
+    cursor: pointer;
+    right: 0;
+    top: 50%;
+    z-index: 5;
+    user-select: none;
+}
+.icon-pencil:hover{
+    display: block;
+    transform: scale(1.1);
+}
+.icon-pencil:active{
+    transform: scale(0.9);
+}
+.box_body_guia_resumo > div > .icon-pencil{
+    right: 2px;
+    top: 20%;
+}
+.box_body_guia_detalhes_procs_proc-itens > .icon-pencil{
+    top: 3px;
+}
+.box_body_guia_detalhes_outras_despesa_itens > .icon-pencil{
+    top: 10%;
+}
+.caixaBtn_descricao_nomeDoArquivo ~ .icon-pencil{
+    top: 25%;
+    right: 2%;
+    height: 28px;
+}
+
+/* ---------- Mostrar lápis ---------- */
+.box_body_guia_resumo_descricao:hover ~ .icon-pencil{
+    display: block;
+}
+.box_top_item_valor:hover ~ .icon-pencil{
+    display: block;
+}
+.box_body_guia_resumo_valor:hover ~ .icon-pencil{
+    display: block;
+}
+.box_body_guia_detalhes_procs_proc-itens:hover > .icon-pencil{
+    display: block;
+}
+.box_body_guia_detalhes_outras_despesa_itens:hover > .icon-pencil{
+    display: block;
+}
+.caixaBtn_descricao_nomeDoArquivo:hover ~ .icon-pencil{
+    display: block;
+}
+
+/* ---------- Ícones validação ---------- */
+.icon-valid{
+    display: block;
+    user-select: none;
+}
+
+/* ---------- Ícones da lixeira ---------- */
+.icon-lixeira{
+    height: 18px;
+    cursor: pointer;
+    user-select: none;
+}
+.icon-lixeira:hover{
+    transform: scale(1.1);
+}
+.icon-lixeira:active{
+    transform: scale(0.9);
+}
+
+.box_body_guia > .icon-lixeira{
+    height: 22px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.box_body_guia_detalhes_procs_proc > .icon-lixeira{
+    margin-left: 10%;
+}
+.box_body_guia_detalhes_outras_despesa_itens > .icon-lixeira{
+    margin-left: 10%;
+}
+/* ---------- Ícones de carregamento ---------- */
+.icon-load{
+    user-select: none;
+    animation: rotacionarIconLoad .9s infinite linear;
+}
+@keyframes rotacionarIconLoad{
+    25%{
+        transform: rotate(90deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    75%{
+        transform: rotate(270deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- Ícone para fechar um pop-up ---------- */
+.icon-close{
+    position: absolute;
+    height: 15px;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 1px;
+    background: #ffffff3d;
+    box-shadow: 0 0 5px 2px #ffffff3d;
+    transition: .3s;
+    user-select: none;
+}
+.icon-close:hover{
+    box-shadow: 0 0 5px 5px #ffffff3d;
+}
+.icon-close:active{
+    transform: scale(0.9);
+}
+
+/* ---------- Ícone download ---------- */
+.icon-download{
+    height: 18px;
+    cursor: pointer;
+    user-select: none;
+}
+.icon-download:hover{
+    transform: scale(1.1);
+}
+.icon-download:active{
+    transform: scale(0.9);
+}
+/* ---------- Ícones de seta das Abas de Procedimentos e Despesas ---------- */
+.seta-aba{
+    position: absolute;
+    height: 15px;
+    right: 5px;
+    transform: rotate(180deg);
+    user-select: none;
+}
+
+/* ---------- Ícones do tema ---------- */
+.icon-tema{
+    height: 15px;
+    user-select: none;
+}
+
+/* Ícones para adicionar itens dentro da guia */
+
+.icon-add-item{
+    height: 20px;
+    user-select: none;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+}
+
+.icon-add-item:hover{
+    transform: scale(1.08);
+}
+
+.icon-add-item:active{
+    transform: scale(1);
+}

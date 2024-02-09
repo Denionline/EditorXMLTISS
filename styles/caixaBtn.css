@@ -1,0 +1,36 @@
+/* ---------- Caixas fora do box central ---------- */
+.caixaBtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 98%;
+    margin: 0 auto 20px auto;
+}
+
+.caixaBtn_descricao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.caixaBtn_descricao_titulo {
+    font-family: var(--font-titulos);
+    height: 100%;
+    width: 30%;
+    text-transform: uppercase;
+    color: white;
+    user-select: none;
+}
+
+.caixaBtn_descricao_nomeDoArquivo {
+    text-align: center;
+    height: 100%;
+    width: 70%;
+    font-size: 2em;
+    border-radius: 5px;
+    font-weight: bolder;
+    color: white;
+    background: transparent;
+}

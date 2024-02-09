@@ -1,0 +1,66 @@
+/* ---------- Procedimentos da Guia ---------- */
+/* ---------- Cabeçalho ---------- */
+.box_body_guia_detalhes_procs{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--cor-de-fundo-procs);
+}
+.box_body_guia_detalhes_cabecalho_procs_titulo{
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px;
+    background: transparent;
+    font-family: var(--font-titulos);
+    user-select: none;
+    position: relative;
+    color: var(--cor-de-texto-detalhes-titulo);
+}
+.box_body_guia_detalhes_cabecalho_procs_proc{
+    font-weight: bold;
+    font-family: var(--font-textos);
+    color: var(--cor-de-texto-procs);
+}
+
+/* ---------- Grid Cabeçalho e Procedimentos ---------- */
+.box_body_guia_detalhes_cabecalho_procs_proc, .box_body_guia_detalhes_procs_proc{
+    display: grid;
+    grid-template-columns: 9% 1fr 15% 10% 10% 4%;
+    background: transparent;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+}
+
+/* ---------- Procedimentos ---------- */
+.box_body_guia_detalhes_procs_proc_nome{
+    text-align: start;
+    font-family: var(--font-textos);
+}
+.box_body_guia_detalhes_procs_proc-itens{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    font-family: var(--font-numeros);
+    width: 100%;
+}
+.box_body_guia_detalhes_procedimentos{
+    box-shadow: inset 0px -5px 5px 0 rgb(0, 0, 0, 0.200);
+    /* padding-bottom: 20px; */
+}
+.box_body_guia_detalhes_procs_proc{
+    border-top: 1px solid black;
+}
+.box_body_guia_detalhes_procs_proc:last-child{
+    padding-bottom: 10px;
+}
+.box_body_guia_detalhes_procs_proc_item{
+    font-family: var(--font-numeros);
+    text-align: center;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    color: var(--cor-de-texto-procs);
+}

@@ -1,0 +1,60 @@
+.opcoesAdicionais {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    width: 90%;
+    margin-top: 5px;
+    user-select: none;
+}
+
+.opcoesAdicionais_opcoesGuias{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+}
+
+.opcoesAdicionais_opcoesGuias > div {
+    font-family: var(--font-textos);
+    border-radius: 10px;
+    padding: 3px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
+}
+.opcoesAdicionais_opcoesGuias > div:active {
+    transform: scale(0.9);
+}
+.opcoesAdicionais_marcaTodasGuias, .opcoesAdicionais_desmarcaTodasGuias{
+    color: white;
+}
+.opcoesAdicionais_marcaTodasGuias:hover, .opcoesAdicionais_desmarcaTodasGuias:hover{
+    background: white;
+    color: black;
+}
+.opcoesAdicionais_deletaGuiasMarcadas{
+    color: rgb(255, 0, 0);
+}
+.opcoesAdicionais_deletaGuiasMarcadas:hover{
+    background: rgb(250, 0, 0);
+    color: white;
+}
+
+.opcoesAdicionais_voltar{
+    font-family: var(--font-textos);
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.opcoesAdicionais_voltar:hover{
+    transform: scale(1.1);
+}
+
+.opcoesAdicionais_voltar:active{
+    transform: scale(0.9);
+}

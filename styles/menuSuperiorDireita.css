@@ -1,0 +1,100 @@
+.menuSuperiorDireita {
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+    background-color: rgb(0, 0, 0, 80%);
+    position: absolute;
+
+    border-radius: 10%;
+    right: -150px;
+    top: -150px;
+
+    z-index: 8;
+    transition: .3s all ease-in-out;
+}
+
+.menuSuperiorDireita_opcoes {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.menuSuperiorDireita_icon-menu {
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 76%;
+    left: 4%;
+    transition: .2s all ease-in-out;
+}
+
+.menuSuperiorDireita_icon-menu__opened{
+    top: 42%;
+    left: 38%;
+}
+
+.menuSuperiorDireita:active > .menuSuperiorDireita_icon-menu{
+    display: none;
+}
+
+.menuSuperiorDireita_opcoes_btnToXML,
+.menuSuperiorDireita_opcoes_btnToDeleteObj {
+    position: absolute;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    transition: .5s;
+}
+
+.menuSuperiorDireita_opcoes_btnToXML {
+    top: 40%;
+    left: 5%;
+}
+
+.menuSuperiorDireita_opcoes_btnToDeleteObj {
+    top: 71%;
+    left: 34%;
+
+}
+
+.menuSuperiorDireita_opcoes_btnToXML_gif,
+.menuSuperiorDireita_opcoes_btnToDeleteObj_gif {
+    background: transparent;
+    height: 50px;
+    width: 50px;
+}
+
+.menuSuperiorDireita__opened{
+    animation: openMenu .3s forwards;
+}
+@keyframes openMenu {
+    from {
+        border-radius: 10%;
+        right: -150px;
+        top: -150px;
+    }
+
+    to {
+        border-radius: 50%;
+        right: -80px;
+        top: -80px;
+    }
+}
+
+.menuSuperiorDireita__closed{
+    animation: closeMenu .3s forwards;
+}
+@keyframes closeMenu {
+    from {
+        border-radius: 50%;
+        right: -80px;
+        top: -80px;
+    }
+    
+    to {
+        border-radius: 10%;
+        right: -150px;
+        top: -150px;
+    }
+}

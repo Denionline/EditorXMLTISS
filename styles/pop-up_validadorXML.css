@@ -1,0 +1,59 @@
+.pop-up_validadorXML{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 150px;
+    width: 550px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: bold;
+    user-select: none;
+    overflow: hidden;
+    transition: .3s;
+    
+    top: 40%;
+    left: 30%;
+    transform: translate(-50%, -50%) scale(0.00001);
+    
+    z-index: 5;
+}
+
+.pop-up_validadorXML_descricao{
+    font-family: var(--font-titulos);
+    font-size: 2em;
+    height: 40%;
+}
+
+.pop-up_validadorXML_opcoes{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 60%;
+    font-family: var(--font-textos);
+    font-size: 1.5em;
+}
+
+.pop-up_validadorXML_opcoes > div,a {
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+}
+.pop-up_validadorXML_opcoes > div:hover,a:hover {
+    transform: scale(1.05);
+}
+.pop-up_validadorXML_opcoes > div:active,a:active {
+    transform: scale(1);
+}
+
+.pop-up_validadorXML_opcoes-1{
+    color: black;
+    text-decoration: none;
+}
+
+.pop-up_validadorXML__opened{
+    box-shadow: 0px 3px 5px 1px #00000087;
+    padding: 10px;
+    animation: pop-up .3s forwards;
+}

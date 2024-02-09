@@ -1,0 +1,69 @@
+.pop-up_confirmaDeletaGuiasSelecionadas{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 150px;
+    width: 300px;
+    background: rgb(100,0,0,0.9);
+    color: white;
+    border-radius: 10px;
+    user-select: none;
+    transition: .3s all ease-in-out;
+    overflow: hidden;
+    opacity: 0;
+
+    top: 45%;
+    left: 40%;
+    transform: translate(-50%, -50%) scale(0.00001);
+    
+    z-index: 5;
+}
+.pop-up_confirmaDeletaGuiasSelecionadas > div{
+    text-align: center;
+    width: 100%;
+}
+.pop-up_confirmaDeletaGuiasSelecionadas_descricao{
+    font-family: var(--font-titulos);
+    font-size: 1.5em;
+}
+.pop-up_confirmaDeletaGuiasSelecionadas_opcoes{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-family: var(--font-textos);
+    font-weight: bold;
+}
+.pop-up_confirmaDeletaGuiasSelecionadas_opcoes > div{
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+}
+.pop-up_confirmaDeletaGuiasSelecionadas_opcoes > div:hover{
+    transform: scale(1.08);
+}
+.pop-up_confirmaDeletaGuiasSelecionadas_opcoes > div:active{
+    transform: scale(1);
+}
+
+.pop-up_confirmaDeletaGuiasSelecionadas__aberto{
+    opacity: 1;
+    animation: pop-up .5s forwards;
+}
+
+@keyframes pop-up {
+    25%{
+        transform: scale(0.9);
+    }
+    50%{
+        transform: scale(1);
+    }
+    75%{
+        transform: scale(0.9);
+    }
+    100%{
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,42 @@
+.pop-up_deletaObj{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: -30%;
+    background: white;
+    height: 20%;
+    width: 30%;
+    padding: 10px;
+    border-radius: 20px;
+    transition: .5s;
+    z-index: 2;
+}
+.pop-up_deletaObj_descricaoPergunta{
+    font-family: var(--font-textos);
+    font-size: 1.3em;
+}
+.pop-up_deletaObj_opcoes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 20px;
+    font-family: var(--font-titulos);
+}
+.pop-up_deletaObj_opcoes > div{
+    cursor: pointer;
+    /* border: 1px solid black; */
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.508);
+    padding: 10px;
+    border-radius: 10px;
+    transition: .2s;
+    font-weight: bold;
+}
+.pop-up_deletaObj_opcoes > div:hover{
+    transform: scale(1.1);
+}
+.pop-up_deletaObj_opcoes > div:active{
+    transform: scale(0.9);
+}

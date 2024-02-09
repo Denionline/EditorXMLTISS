@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="imgs/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/geral.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"
+        integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify.min.js"
+        integrity="sha512-IVLstwNQp3QUapljBdrhC5Pr0S+/IIvS9yPGXxUZVfPsRKw8WgDO/8QZEuA49OmS24FwUWjLBDHs9NO/NEa2FQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+        integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
+        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Editor XMLTISS</title>
+</head>
+
+<body>
+    <!-- Tela de carregamento -->
+    <div id="loading">
+        <img src="imgs/loading.gif" alt="Loading">
+    </div>
+
+    <div class="menuSuperiorDireita" style="display: none;">
+        <div class="menuSuperiorDireita_opcoes">
+            <img class="menuSuperiorDireita_icon-menu" src="imgs/menu.png" alt="Ícone de menu">
+            <div class="menuSuperiorDireita_opcoes_btnToXML">
+                <img class="menuSuperiorDireita_opcoes_btnToXML_gif" src="imgs/download-anim1.png" alt="Botão baixar"
+                    onmouseover="mudaGifDownload()" onmouseleave="mudaGifDownload()" title="Baixar XML">
+            </div>
+            <div class="menuSuperiorDireita_opcoes_btnToDeleteObj">
+                <img class="menuSuperiorDireita_opcoes_btnToDeleteObj_gif" src="imgs/lixeira-anim1.png"
+                    alt="Botão excluir" onmouseover="mudaGifExcluir()" onmouseleave="mudaGifExcluir()"
+                    title="Excluir XML">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela de bloqueio de conteúdo da tela, para quando um pop-up for aberto. -->
+    <div class="bloqueio_pop-up" style="display: none;"></div>
+
+    <div class="tema">
+        <span class="tema_descricao">Tema</span>
+        <div class="tema_claro">
+            <img class="icon-tema" data-cor="claro" src="imgs/sol-escuro.png" alt="Ícone de sol">
+        </div>
+        <div class="tema_escuro">
+            <img class="icon-tema" data-cor="escuro" src="imgs/lua-escuro.png" alt="Ícone de lua">
+        </div>
+    </div>
+
+    <!-- Pop-Up que pergunta se deseja deletar o Objeto que contem o XML carregado -->
+    <div class="pop-up_deletaObj">
+        <p class="pop-up_deletaObj_descricaoPergunta">Confirma exclusão desse arquivo XML?</p>
+        <div class="pop-up_deletaObj_opcoes">
+            <div class="pop-up_deletaObj_opcoes_1">Sim</div>
+            <div class="pop-up_deletaObj_opcoes_2">Não</div>
+        </div>
+    </div>
+
+    <!-- Pop-Up que mostra botoões para ações, um para Baixar o arquivo XML, e outro para ir para o site de Validar o Hash -->
+    <div class="pop-up_xmlGerado">
+        <img class="icon-close" src="imgs/close.png" alt="Ícone para fechar pop-up">
+        <div class="pop-up_xmlGerado_baixarXML">Baixar XML</div>
+        <!-- <div class="pop-up_xmlGerado_salvarXML">Salvar XML</div> -->
+        <a href="https://validatiss.com.br/public/validador-xml-tiss" target="_blank"
+            class="pop-up_xmlGerado_encaminhaParaValidador">Ir para Validador de XML</a>
+    </div>
+
+    <!-- Pop-Up para Confirmar exclusão das guias selecionadas  -->
+    <div class="pop-up_confirmaDeletaGuiasSelecionadas">
+        <div class="pop-up_confirmaDeletaGuiasSelecionadas_descricao">Confirma a exclusão de <span
+                class="pop-up_confirmaDeletaGuiasSelecionadas_descricao-qtde"></span>?</div>
+        <div class="pop-up_confirmaDeletaGuiasSelecionadas_opcoes">
+            <div class="pop-up_confirmaDeletaGuiasSelecionadas_opcoes-sim" data-opcao="sim">Sim</div>
+            <div class="pop-up_confirmaDeletaGuiasSelecionadas_opcoes-nao" data-opcao="nao">Não</div>
+        </div>
+    </div>
+
+    <!-- Pop-Up para perguntar se deseja ir para o validador de XML  -->
+    <div class="pop-up_validadorXML">
+        <div class="pop-up_validadorXML_descricao">Arquivo Baixado com Sucesso!</div>
+        <div class="pop-up_validadorXML_opcoes">
+            <a class="pop-up_validadorXML_opcoes-1" href="https://validatiss.com.br/public/validador-xml-tiss"
+                target="_blank" data-opcao="sim">Ir para o validador de XML</a>
+            <div class="pop-up_validadorXML_opcoes-2" data-opcao="nao">Voltar</div>
+        </div>
+    </div>
+
+    <!-- Input para inserir o XML que será transformado em um Objeto -->
+    <div class="caixaInputXML" style="opacity: 0;display: none;">
+        <input type="file" id="fileXML" accept=".xml">
+    </div>
+
+    <div class="caixaXmls"></div>
+
+    <!-- Parte de cima da tela que contém os botões das ações, e um input para inserir o nome do arquivo -->
+    <div class="caixaBtn" style="opacity: 0;display: none;">
+        <div class="caixaBtn_descricao">
+            <h1 class="caixaBtn_descricao_titulo">Nome do arquivo: </h1>
+            <input type="text" class="caixaBtn_descricao_nomeDoArquivo" id="nomeDoArquivo" data-campo="nomeDoArquivo"
+                disabled>
+            <img src="imgs/pencil.png" class="icon-pencil" alt="Ícone para alterar">
+        </div>
+    </div>
+
+    <!-- Caixa onde é inserido o XML transformado em Objeto, para alterações das informações do mesmo. -->
+    <div class="box" style="opacity: 0;display: none;">
+        <div class="box_top">
+            <div class="box_top_item box_top_codigoDoPrestador">
+                <div class="box_top_item_descricao box_top_codigoDoPrestador_descricao">Código do Prestador</div>
+                <input type="text" class="box_top_item_valor box_top_codigoDoPrestador_valor"
+                    data-campo="codigoDoPrestador" value="" disabled>
+                <img src="imgs/pencil.png" class="icon-pencil" alt="Ícone para alterar">
+            </div>
+            <div class="box_top_item box_top_numeroDoProtocolo">
+                <div class="box_top_item_descricao box_top_numeroDoProtocolo_descricao">Número do Protocolo</div>
+                <input type="text" class="box_top_item_valor box_top_numeroDoProtocolo_valor"
+                    data-campo="numeroDoProtocolo" value="" disabled>
+                <img src="imgs/pencil.png" class="icon-pencil" alt="Ícone para alterar">
+            </div>
+            <div class="box_top_item box_top_ans">
+                <div class="box_top_item_descricao box_top_ans_descricao">Registro ANS</div>
+                <input type="text" class="box_top_item_valor box_top_ans_valor" data-campo="registroANS" value=""
+                    disabled>
+                <img src="imgs/pencil.png" class="icon-pencil" alt="Ícone para alterar">
+            </div>
+            <div class="box_top_item box_top_versao">
+                <div class="box_top_item_descricao box_top_versao_descricao">Versão do XML</div>
+                <div class="box_top_item_valor box_top_versao_valor" data-campo="versaoXML"></div>
+            </div>
+            <div class="box_top_item box_top_valor">
+                <div class="box_top_item_descricao box_top_valor_descricao">Valor do XML</div>
+                <div class="box_top_item_valor box_top_valor_valor" data-campo="valorXML"></div>
+            </div>
+        </div>
+
+        <div class="box_body"></div>
+
+        <div class="box_info">
+            <div class="box_info_qtdeDeGuiasSelecionadas">
+                <div class="box_info_descricao">Guias selecionadas: </div>
+                <div class="box_info_valor box_info_qtdeDeGuiasSelecionadas_valor">0</div>
+            </div>
+            <div class="box_info_qtdeDeGuias">
+                <div class="box_info_descricao">Quantidade de guias: </div>
+                <div class="box_info_valor box_info_qtdeDeGuias_valor">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="opcoesAdicionais" style="display: none;">
+        <div class="opcoesAdicionais_voltar">Voltar para o Menu</div>
+        <div class="opcoesAdicionais_opcoesGuias">
+            <div class="opcoesAdicionais_marcaTodasGuias btnAcaoGuias">Marcar todas as guias</div>
+            <div class="opcoesAdicionais_desmarcaTodasGuias btnAcaoGuias">Desmarcar todas as guias</div>
+            <div class="opcoesAdicionais_deletaGuiasMarcadas btnAcaoGuias">Deletar guias marcadas</div>
+        </div>
+    </div>
+
+
+
+    <!-- Arquivos JavaScript que fazem todas as ações da página. -->
+    <script src="scripts/lerXML.js"></script>
+    <script src="scripts/format.js"></script>
+    <script src="scripts/valoresHTML.js"></script>
+    <script src="scripts/atualizaDados.js"></script>
+    <script src="scripts/alteraDados.js"></script>
+    <script src="scripts/deletaItem.js"></script>
+    <script src="scripts/localStorage.js"></script>
+    <script src="scripts/transformaObjeto.js"></script>
+    <script src="scripts/somaItens.js"></script>
+    <script src="scripts/deletaObj.js"></script>
+    <script src="scripts/insereItem.js"></script>
+    <script src="scripts/atualizaSequencial.js"></script>
+    <script src="scripts/calculaHash.js"></script>
+    <script src="scripts/abre_fecha.js"></script>
+    <script src="scripts/caixaXmls.js"></script>
+    <script src="scripts/pop-ups/pop-up_confirmaDeletaObj.js"></script>
+    <script src="scripts/pop-ups/pop-up_xmlGerado.js"></script>
+    <script src="scripts/pop-ups/pop-up_confirmaDeleteGuiasSelecionadas.js"></script>
+    <script src="scripts/pop-ups/pop-up_validadorXML.js"></script>
+    <script src="scripts/abaItens.js"></script>
+    <script src="scripts/nomeDoArquivo.js"></script>
+    <script src="scripts/selecionaGuia.js"></script>
+    <script src="scripts/menuSuperiorDireita.js"></script>
+    <script src="scripts/alteraCor.js"></script>
+    <script src="scripts/cookies.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

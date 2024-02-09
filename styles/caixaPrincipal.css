@@ -1,0 +1,83 @@
+/* ---------- Caixa onde será manipulado o XML ---------- */
+.box{
+    position: relative;
+    flex-direction: column;
+    background: var(--cor-de-fundo-box);
+    padding: 10px 10px 22px 10px;
+    border-radius: 10px;
+    width: 95%;
+    height: 80%;
+    box-shadow: 0px 0px 3px 1px rgba(255, 255, 255, 0.54);
+    transition: .3s;
+}
+
+/* ---------- Parte no topo da caixa ---------- */
+.box_top{
+    display: flex;
+    justify-content: space-between;
+    background: var(--cor-de-fundo-box-top);
+    border-bottom: 1px solid black;
+}
+.box_top > div{
+    user-select: none;
+    position: relative;
+    color: var(--cor-de-texto-box-top);
+}
+.box_top > div > input {
+    color: var(--cor-de-texto-box-top);
+}
+.box_top_item{
+    text-align: center;
+}
+.box_top_item_descricao{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: var(--font-titulos);
+}
+.box_top_item_valor{
+    padding: 5px;
+    text-align: center;
+    background: transparent;
+    font-family: var(--font-numeros);
+    font-size: 16px;
+}
+.box_body{
+    background: var(--cor-de-fundo-box_body);
+    overflow: auto;
+}
+.box_body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.box_body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.box_body::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+}
+
+.box_body::-webkit-scrollbar-thumb:hover {
+    background: rgb(10, 10, 10);
+}
+
+/* Ícone de adicionar item na guia */
+
+.box_body_guia_detalhes_adicionar{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+
+
+
+.box_body_guia_detalhes__vazio{
+    background-color: transparent;
+}
+
+.box_body_guia_detalhes__vazio > :first-child > .seta-aba{
+    display: none;
+}

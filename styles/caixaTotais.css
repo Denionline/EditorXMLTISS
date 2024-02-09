@@ -1,0 +1,24 @@
+/* ---------- Totais da Guia ---------- */
+.box_body_guia_totais{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+}
+.box_body_guia_totais > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: var(--cor-de-texto-totais);
+    font-weight: bold;
+    font-family: var(--font-textos);
+}
+.box_body_guia_totais_item_descricao{
+    user-select: none;
+}
+.box_body_guia_totais_item_valor{
+    font-size: 1.1em;
+    font-family: var(--font-numeros);
+}

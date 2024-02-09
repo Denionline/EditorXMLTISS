@@ -1,0 +1,29 @@
+.box_info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    left: 5%;
+    bottom: 2px;
+    height: 20px;
+    width: 90%;
+    padding-top: 5px;
+    background: transparent;
+}
+.box_info > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: transparent;
+    width: 200px;
+    font-weight: bold;
+    color: var(--cor-de-texto-info);
+}
+.box_info > div > .box_info_descricao{
+    font-family: var(--font-textos);
+    user-select: none;
+}
+.box_info > div > .box_info_valor{
+    font-family: var(--font-numeros);
+    margin-left: 5px;
+}
