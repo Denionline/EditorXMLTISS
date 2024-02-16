@@ -1,7 +1,17 @@
-function transformObjectToXML(objetoDaCaixa) {
-    objetoDaCaixa.objetoXML['ans:mensagemTISS']['ans:epilogo']['ans:hash'] = '--novo_hash--';
+// function adicionaEscutadorBaixarXml(){
+//     const btnBaixarXml = document.querySelector('.menuSuperiorDireita_opcoes_btnToXML_gif');
 
-    let xmlFormatado = jsonToXml(objetoDaCaixa);
+//     btnBaixarXml.addEventListener('click', () => {
+//         const objetoXML = obtemObjeto();
+//         const nomeDoArquivo = obtemNomeDoArquivoNoStorage();
+//         transformObjectToXML(objetoXML, nomeDoArquivo);
+//     })
+// }
+
+function transformObjectToXML(objetoXML, nomeDoArquivo){
+    objetoXML['ans:mensagemTISS']['ans:epilogo']['ans:hash'] = '--novo_hash--';
+
+    let xmlFormatado = jsonToXml(objetoXML);
     // let hash = calculateHash(objetoEmXML);
     // let objetoEmXML_newHash = objetoEmXML.replace('<ans:hash>--novo_hash--</ans:hash>', `<ans:hash>${hash}</ans:hash>`);
     let objetoEmXML = xmlFormatado.replace('<?xml version="1.0" encoding="UTF-8"?>', '<?xml version="1.0" encoding="ISO-8859-1"?>')
@@ -10,15 +20,14 @@ function transformObjectToXML(objetoDaCaixa) {
     //Faz o download do Arquivo.
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.download = `${objetoDaCaixa.nomeDoArquivo}.xml`;
+    link.download = `${nomeDoArquivo}.xml`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 }
 
-function jsonToXml(objetoDaCaixa) {
-    let json = objetoDaCaixa.objetoXML;
-    let mensagemTISS = objetoDaCaixa.mensagemTISS;;
+function jsonToXml(json) {
+    let mensagemTISS = obtemMensagemTISSstorage();
     var xml = '<?xml version="1.0" encoding="UTF-8"?>';
 
     function convertNode(obj, parentKey) {
@@ -50,9 +59,9 @@ function jsonToXml(objetoDaCaixa) {
                     xml += '</ans:procedimentosExecutados>';
                 } else {
 
-                    if (key === 'ans:mensagemTISS') {
+                    if(key === 'ans:mensagemTISS'){
                         xml += '<' + key + ` xmlns:ans="${mensagemTISS.ans}" xmlns:xsi="${mensagemTISS.xsi}" xsi:schemaLocation="${mensagemTISS.schemaLocation}">`;
-                    } else {
+                    }else{
                         xml += '<' + key + '>';
                     }
 

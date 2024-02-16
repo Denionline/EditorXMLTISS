@@ -3,7 +3,7 @@ function guiaHTML(guia, numeroGuiaOperadora, id, abaP, abaD) {
     let numeroCarteirinha = guia['ans:dadosBeneficiario']['ans:numeroCarteira'];
     let senha = guia['ans:dadosAutorizacao']['ans:senha'] == undefined ? "" : guia['ans:dadosAutorizacao']['ans:senha'];
     let data = formatData(guia['ans:dadosAutorizacao']['ans:dataAutorizacao']);
-    let dataValidadeSenha =  formatData(guia['ans:dadosAutorizacao']['ans:dataValidadeSenha']);
+    let dataValidadeSenha = formatData(guia['ans:dadosAutorizacao']['ans:dataValidadeSenha']);
 
     return `
         <div class="box_body_guia box_body_guia-${numeroGuiaOperadora}" id="${id}">
@@ -55,14 +55,14 @@ function guiaHTML(guia, numeroGuiaOperadora, id, abaP, abaD) {
 
                 <div class="box_body_guia_detalhes_procs box_body_guia_detalhes_procs-${numeroGuiaOperadora}">
                     <div class="box_body_guia_detalhes_cabecalho_procs_titulo box_body_guia_detalhes_itens">Procedimentos <img src="imgs/seta.png" class="seta-aba ${abaP}" alt="Seta para abrir/ocultar aba"></div>
-                    <div class="box_body_guia_detalhes_procedimentos box_body_guia_detalhes_procedimentos-${numeroGuiaOperadora} ${abaP == 'seta-up'? 'abaOculta' : ''}">
+                    <div class="box_body_guia_detalhes_procedimentos box_body_guia_detalhes_procedimentos-${numeroGuiaOperadora} ${abaP == 'seta-up' ? 'abaOculta' : ''}">
                         <!-- Procedimentos -->
                     </div>
                 </div>
 
                 <div class="box_body_guia_detalhes_outras box_body_guia_detalhes_outras-${numeroGuiaOperadora}">
                     <div class="box_body_guia_detalhes_outras_titulo box_body_guia_detalhes_itens">Materiais e Medicamentos <img src="imgs/seta.png" class="seta-aba ${abaD}" alt="Seta para abrir/ocultar aba"></div>
-                    <div class="box_body_guia_detalhes_outrasDespesas box_body_guia_detalhes_outrasDespesas-${numeroGuiaOperadora} ${abaD == 'seta-up'? 'abaOculta' : ''}">
+                    <div class="box_body_guia_detalhes_outrasDespesas box_body_guia_detalhes_outrasDespesas-${numeroGuiaOperadora} ${abaD == 'seta-up' ? 'abaOculta' : ''}">
                         <!-- Materiais e Medicamentos -->
                     </div>               
                 </div>
@@ -98,42 +98,86 @@ function procedimentoHTML(procedimento, id, numeroGuiaOperadora) {
     let codigoDoProcedimento = procedimento['ans:procedimento']['ans:codigoProcedimento'];
     let dataDoProcedimento = formatData(procedimento['ans:dataExecucao']);
     let valorTotalDoProcedimento = formatValue(procedimento['ans:valorTotal']);
-    formatReducao(procedimento['ans:reducaoAcrescimo'], procedimento['ans:valorTotal'], id)
+    formatReducao(procedimento['ans:reducaoAcrescimo'], procedimento['ans:valorTotal'], id);
+    let CBOS_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:CBOS'];
+    let UF_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:UF'];
+    let CPF_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:codProfissional']['ans:cpfContratado'];
+    let Conselho_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:conselho'];
+    let Grau_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:grauPart'] == undefined ? '-' : procedimento['ans:equipeSadt']['ans:grauPart'];
+    let Nome_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:nomeProf'];
+    let CRM_ExecutanteDoProcedimento = procedimento['ans:equipeSadt']['ans:numeroConselhoProfissional'];
 
     return `
         <div class="box_body_guia_detalhes_procs_proc box_body_guia_detalhes_procs_proc-${numeroGuiaOperadora}" id="${id}">
-
+            <img src="imgs/seta.png" class="seta-aba" alt="Seta para abrir/ocultar aba">
             <!-- Código da Tabela -->
             <div class="box_body_guia_detalhes_procs_proc-itens box_body_guia_detalhes_procs_proc_tabela">
                 <input class="box_body_guia_detalhes_procs_proc_item" data-campo="codigoDaTabela" value="${codigoDaTabela}" disabled>
                 <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
             </div>
-
             <!-- Descrição do Procedimento -->
             <div class="box_body_guia_detalhes_procs_proc-itens box_body_guia_detalhes_procs_proc_nome">
                 <input class="box_body_guia_detalhes_procs_proc_item" data-campo="descricaoProcedimento" value="${descricaoProcedimento}" disabled>
                 <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
             </div>
-
             <!-- Código do Procedimento -->
             <div class="box_body_guia_detalhes_procs_proc-itens box_body_guia_detalhes_procs_proc_codigo">
                 <input class="box_body_guia_detalhes_procs_proc_item" data-campo="codigoDoProcedimento" value="${codigoDoProcedimento}" disabled>
                 <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
-            </div>
-            
+            </div>            
             <!-- Data do Procedimento -->
             <div class="box_body_guia_detalhes_procs_proc-itens box_body_guia_detalhes_procs_proc_data">
                 <input class="box_body_guia_detalhes_procs_proc_item" data-campo="dataDoProcedimento" value="${dataDoProcedimento}" disabled>
                 <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
             </div>
-
             <!-- Valor total do Procedimento -->
             <div class="box_body_guia_detalhes_procs_proc-itens box_body_guia_detalhes_procs_proc_valor">
                 <input class="box_body_guia_detalhes_procs_proc_item" data-campo="valorTotalDoProcedimento" value="${valorTotalDoProcedimento}" disabled>
                 <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
             </div>
-
             <img src="imgs/lixeira.png" class="icon-lixeira" alt="Ícone de lixeira" title="Excluir">
+
+            <div class="box_body_guia_detalhes_procs_proc_AbaSecundaria abaOculta">
+                <div class="box_body_guia_detalhes_procs_proc_ProfExec_cabecalho">
+                    <div> Nome do Profissional </div>
+                    <div> Conselho </div>
+                    <div> CRM </div>          
+                    <div> UF </div>
+                    <div> CBO </div>
+                    <div> Grau </div>
+                    <div> CPF </div>
+                </div>
+                <div class="box_body_guia_detalhes_procs_proc_ProfExec">
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_nome">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_nome_item" data-campo="Nome_ExecutanteDoProcedimento" value="${Nome_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_conselho">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_conselho_item" data-campo="Conselho_ExecutanteDoProcedimento" value="${Conselho_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_CRM">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_CRM_item" data-campo="CRM_ExecutanteDoProcedimento" value="${CRM_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_UF">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_UF_item" data-campo="UF_ExecutanteDoProcedimento" value="${UF_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_CBOS">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_CBOS_item" data-campo="CBOS_ExecutanteDoProcedimento" value="${CBOS_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_grau">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_grau_item" data-campo="Grau_ExecutanteDoProcedimento" value="${Grau_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>
+                    <div class="box_body_guia_detalhes_procs_proc_ProfExec_item box_body_guia_detalhes_procs_proc_ProfExec_CPF">
+                        <input class="box_body_guia_detalhes_procs_proc_ProfExec_CPF_item" data-campo="CPF_ExecutanteDoProcedimento" value="${CPF_ExecutanteDoProcedimento}" disabled>
+                        <img src="imgs/pencil.png" class="icon-pencil" data-id="${id}" alt="Ícone para alterar" title="Editar">
+                    </div>                
+                </div>
+            </div>
         </div>
     `
 }

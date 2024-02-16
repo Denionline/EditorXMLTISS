@@ -17,20 +17,10 @@
 .icon-pencil:active{
     transform: scale(0.9);
 }
+
 .box_body_guia_resumo > div > .icon-pencil{
     right: 2px;
     top: 20%;
-}
-.box_body_guia_detalhes_procs_proc-itens > .icon-pencil{
-    top: 3px;
-}
-.box_body_guia_detalhes_outras_despesa_itens > .icon-pencil{
-    top: 10%;
-}
-.caixaBtn_descricao_nomeDoArquivo ~ .icon-pencil{
-    top: 25%;
-    right: 2%;
-    height: 28px;
 }
 
 /* ---------- Mostrar lápis ---------- */
@@ -43,11 +33,32 @@
 .box_body_guia_resumo_valor:hover ~ .icon-pencil{
     display: block;
 }
+.box_body_guia_detalhes_procs_proc-itens > .icon-pencil{
+    top: 3px;
+}
 .box_body_guia_detalhes_procs_proc-itens:hover > .icon-pencil{
     display: block;
 }
+/* Ícones das caixas do profissional executante */
+.box_body_guia_detalhes_procs_proc_ProfExec_item > .icon-pencil{
+    top: -40%;
+}
+.box_body_guia_detalhes_procs_proc_ProfExec_item:hover > .icon-pencil{
+    display: block;
+}
+
+/* Ícones das caixas das outras despesas */
+.box_body_guia_detalhes_outras_despesa_itens > .icon-pencil{
+    top: 10%;
+}
 .box_body_guia_detalhes_outras_despesa_itens:hover > .icon-pencil{
     display: block;
+}
+/* Ícones das caixas do nome do arquivo */
+.caixaBtn_descricao_nomeDoArquivo ~ .icon-pencil{
+    top: 25%;
+    right: 2%;
+    height: 28px;
 }
 .caixaBtn_descricao_nomeDoArquivo:hover ~ .icon-pencil{
     display: block;
@@ -144,6 +155,14 @@
     right: 5px;
     transform: rotate(180deg);
     user-select: none;
+    z-index: 5;
+    cursor: pointer;
+}
+
+.box_body_guia_detalhes_procs_proc > .seta-aba{
+    transform: rotate(0deg);
+    left: 2px;
+    top: 5px;
 }
 
 /* ---------- Ícones do tema ---------- */

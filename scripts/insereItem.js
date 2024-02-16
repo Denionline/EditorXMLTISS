@@ -1,4 +1,3 @@
-
 function adicionaEscutadorInsereItem() {
     const icons_insere = document.querySelectorAll('.icon-add-item');
     const itens_vazio = document.querySelectorAll('.box_body_guia_detalhes__vazio');
@@ -12,12 +11,12 @@ function adicionaEscutadorInsereItem() {
     itens_vazio.forEach(item_vazio => {
         item_vazio.addEventListener('click', item => {
             let nome = item.target.innerText;
-            let idGuia = item.target.parentElement.parentElement.parentElement.id;
+            let idGuia = parseInt(item.target.parentElement.parentElement.parentElement.id - 1);
 
-            if(nome == 'PROCEDIMENTOS'){
-                insereItemVazio(true, idGuia)
-            }else{
-                insereItemVazio()
+            if (nome == 'PROCEDIMENTOS') {
+                insereItem(true, idGuia)
+            } else {
+                insereItem(false, idGuia)
             }
         })
     })
@@ -27,10 +26,20 @@ function insereItem(item, idGuia) {
     const objetoXML = obtemObjeto();
     const guia = objetoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuia];
 
-    if (item) {
-        insereProcedimento(guia['ans:procedimentosExecutados']);
+    if (item && guia['ans:procedimentosExecutados'] == undefined) {
+        guia['ans:procedimentosExecutados'] = [objetoProcedimento()];
+
+    } else if (!item && guia['ans:outrasDespesas'] == undefined) {
+        guia['ans:outrasDespesas'] = [objetoDespesa()];
+
     } else {
-        insereDespesa(guia['ans:outrasDespesas']);
+
+        if (item) {
+            insereProcedimento(guia['ans:procedimentosExecutados']);
+        } else {
+            insereDespesa(guia['ans:outrasDespesas']);
+        }
+
     }
 
     adicionaAoStorage(objetoXML);
@@ -67,7 +76,49 @@ function insereDespesa(despesas) {
     despesa['ans:servicosExecutados']['ans:valorTotal'] = 0.00;
 }
 
-
-function insereItemVazio(item, idGuia){
-
+const objetoProcedimento = () => {
+    return {
+        'ans:dataExecucao': 0,
+        'ans:equipeSadt': {
+            'ans:CBOS': "225320",
+            'ans:UF': "53",
+            'ans:codProfissional': {
+                'ans:cpfContratado': "08315512676"
+            },
+            'ans:conselho': "06",
+            'ans:grauPart': "12",
+            'ans:nomeProf': "Rafael Gustavo dos Santos Oliveira",
+            'ans:numeroConselhoProfissional': "23744"
+        },
+        'ans:horaFinal': "00:00:00",
+        'ans:horaInicial': "00:00:00",
+        'ans:procedimento': {
+            'ans:codigoProcedimento': "-",
+            'ans:codigoTabela': "-",
+            'ans:descricaoProcedimento': "-"
+        },
+        'ans:quantidadeExecutada': 1,
+        'ans:reducaoAcrescimo': 1.00,
+        'ans:sequencialItem': 1,
+        'ans:valorTotal': 0.00,
+        'ans:valorUnitario': 0.00,
+        'ans:viaAcesso': 1
+    }
+}
+const objetoDespesa = () => {
+    return {
+        'ans:codigoDespesa': "02",
+        'ans:sequencialItem': 1,
+        'ans:servicosExecutados': {
+            'ans:codigoProcedimento': "-",
+            'ans:codigoTabela': "-",
+            'ans:dataExecucao': 0,
+            'ans:descricaoProcedimento': "-",
+            'ans:quantidadeExecutada': 0,
+            'ans:reducaoAcrescimo': "1.00",
+            'ans:unidadeMedida': '-',
+            'ans:valorTotal': 0.00,
+            'ans:valorUnitario': 0.00
+        }
+    }
 }

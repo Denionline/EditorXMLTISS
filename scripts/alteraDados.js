@@ -67,6 +67,8 @@ function alteraDados(nomeID, valor, icon) {
                 alteraDadosProcedimentos(nomeID, valor, icon, objetoDoXML);
             } else if (localSelecionado == 'box_body_guia_detalhes_outras_despesa') {
                 alteraDadosDespesas(nomeID, valor, icon, objetoDoXML);
+            } else if (localSelecionado == 'box_body_guia_detalhes_procs_proc_ProfExec') {
+                alteraDadosProfExec(nomeID, valor, icon, objetoDoXML);
             }
         }
 
@@ -94,66 +96,83 @@ function alteraDadosResumo(nomeResumo, valor, icon, objetoDoXML) {
     } else if (nomeResumo == 'dataDaGuia') {
         resumoSelecionado['ans:dadosAutorizacao']['ans:dataAutorizacao'] = formatDataParaXML(valor);
         resumoSelecionado['ans:dadosSolicitacao']['ans:dataSolicitacao'] = formatDataParaXML(valor);
-    }else {
+    } else {
         resumoSelecionado['ans:dadosAutorizacao']['ans:dataValidadeSenha'] = formatDataParaXML(valor);
     }
 
 }
 
-    function alteraDadosProcedimentos(nomeProcedimento, valor, icon, objetoDoXML) {
-        let idGuiaSelecionado = parseInt(icon.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id) - 1;
-        let procedimentos = objetoDoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuiaSelecionado]['ans:procedimentosExecutados'];
-        let idProcedimentoSelecionado = parseInt(icon.parentElement.parentElement.id) - 1;
-        let procedimentoSelecionado = procedimentos[idProcedimentoSelecionado]
+function alteraDadosProcedimentos(nomeProcedimento, valor, icon, objetoDoXML) {
+    let idGuiaSelecionado = parseInt(icon.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id) - 1;
+    let procedimentos = objetoDoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuiaSelecionado]['ans:procedimentosExecutados'];
+    let idProcedimentoSelecionado = parseInt(icon.parentElement.parentElement.id) - 1;
+    let procedimentoSelecionado = procedimentos[idProcedimentoSelecionado]
 
-        if (nomeProcedimento == 'dataDoProcedimento') {
-            procedimentoSelecionado['ans:dataExecucao'] = formatDataParaXML(valor);
-        } else if (nomeProcedimento == 'codigoDoProcedimento') {
-            procedimentoSelecionado['ans:procedimento']['ans:codigoProcedimento'] = valor;
-        } else if (nomeProcedimento == 'codigoDaTabela') {
-            procedimentoSelecionado['ans:procedimento']['ans:codigoTabela'] = valor;
-        } else if (nomeProcedimento == 'descricaoProcedimento') {
-            procedimentoSelecionado['ans:procedimento']['ans:descricaoProcedimento'] = valor;
-        } else if (nomeProcedimento == 'reducaoDoProcedimento') {
-            let porcentagem = parseInt(valor.replace('%', ''));
-            console.log(porcentagem)
-        } else {
-            procedimentoSelecionado['ans:valorTotal'] = formatValueParaXML(valor);
-            procedimentoSelecionado['ans:valorUnitario'] = formatValueParaXML(valor);
-        }
+    if (nomeProcedimento == 'dataDoProcedimento') {
+        procedimentoSelecionado['ans:dataExecucao'] = formatDataParaXML(valor);
+    } else if (nomeProcedimento == 'codigoDoProcedimento') {
+        procedimentoSelecionado['ans:procedimento']['ans:codigoProcedimento'] = valor;
+    } else if (nomeProcedimento == 'codigoDaTabela') {
+        procedimentoSelecionado['ans:procedimento']['ans:codigoTabela'] = valor;
+    } else if (nomeProcedimento == 'descricaoProcedimento') {
+        procedimentoSelecionado['ans:procedimento']['ans:descricaoProcedimento'] = valor;
+    } else if (nomeProcedimento == 'reducaoDoProcedimento') {
+        let porcentagem = parseInt(valor.replace('%', ''));
+    } else if (nomeProcedimento == 'valorTotalDoProcedimento') {
+        procedimentoSelecionado['ans:valorTotal'] = formatValueParaXML(valor);
+        procedimentoSelecionado['ans:valorUnitario'] = formatValueParaXML(valor);
     }
+}
 
-    function alteraDadosDespesas(nomeDespesa, valor, icon, objetoDoXML) {
-        let idGuiaSelecionado = parseInt(icon.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id) - 1;
-        let despesas = objetoDoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuiaSelecionado]['ans:outrasDespesas'];
-        let idDespesaSelecionada = parseInt(icon.parentElement.parentElement.id) - 1;
-        let despesaSelecionada = despesas[idDespesaSelecionada];
+function alteraDadosDespesas(nomeDespesa, valor, icon, objetoDoXML) {
+    let idGuiaSelecionado = parseInt(icon.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id) - 1;
+    let despesas = objetoDoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuiaSelecionado]['ans:outrasDespesas'];
+    let idDespesaSelecionada = parseInt(icon.parentElement.parentElement.id) - 1;
+    let despesaSelecionada = despesas[idDespesaSelecionada];
 
-        if (nomeDespesa == 'tabelaDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:codigoTabela'] = valor;
-        } else if (nomeDespesa == 'descricaoDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:descricaoProcedimento'] = valor;
-        } else if (nomeDespesa == 'codigoDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:codigoProcedimento'] = valor;
-        } else if (nomeDespesa == 'dataDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:dataExecucao'] = formatDataParaXML(valor);
-        } else if (nomeDespesa == 'unidadeDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:unidadeMedida'] = valor;
-        } else if (nomeDespesa == 'qtdeDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:quantidadeExecutada'] = formatDecimalQtde(valor);
-        } else if (nomeDespesa == 'valorUnDaDespesa') {
-            despesaSelecionada['ans:servicosExecutados']['ans:valorUnitario'] = formatValueParaXML(valor);
-        } else {
-            despesaSelecionada['ans:servicosExecutados']['ans:valorTotal'] = formatValueParaXML(valor);
-        }
+    if (nomeDespesa == 'tabelaDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:codigoTabela'] = valor;
+    } else if (nomeDespesa == 'descricaoDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:descricaoProcedimento'] = valor;
+    } else if (nomeDespesa == 'codigoDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:codigoProcedimento'] = valor;
+    } else if (nomeDespesa == 'dataDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:dataExecucao'] = formatDataParaXML(valor);
+    } else if (nomeDespesa == 'unidadeDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:unidadeMedida'] = valor;
+    } else if (nomeDespesa == 'qtdeDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:quantidadeExecutada'] = formatDecimalQtde(valor);
+    } else if (nomeDespesa == 'valorUnDaDespesa') {
+        despesaSelecionada['ans:servicosExecutados']['ans:valorUnitario'] = formatValueParaXML(valor);
+    } else {
+        despesaSelecionada['ans:servicosExecutados']['ans:valorTotal'] = formatValueParaXML(valor);
     }
+}
 
-    function alteraXmlNaCaixaXmls(icon) {
-        let caixa = obtemCaixaXmlsObjeto();
-        let nome = icon.previousElementSibling.children[0].value;
-        let id = icon.parentElement.dataset.id;
-        let novoNome = nome.replace('.xml', '');
+function alteraDadosProfExec(nomeProcedimento, valor, icon, objetoDoXML) {
+    let idGuiaSelecionado = parseInt(icon.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id) - 1;
+    let procedimentos = objetoDoXML['ans:mensagemTISS']['ans:prestadorParaOperadora']['ans:loteGuias']['ans:guiasTISS'][idGuiaSelecionado]['ans:procedimentosExecutados'];
+    let idProcedimentoSelecionado = parseInt(icon.parentElement.parentElement.parentElement.id) - 1;
+    let procedimentoSelecionado = procedimentos[idProcedimentoSelecionado];
 
-        caixa[id - 1]['nomeDoArquivo'] = novoNome;
-        adicionaCaixaXmlsAoStorage(caixa);
+    const campos_ProfExec = {
+        'CBOS_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:CBOS'] = valor },
+        'UF_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:UF'] = valor },
+        'CPF_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:codProfissional']['ans:cpfContratado'] = valor },
+        'Conselho_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:conselho'] = valor },
+        'Grau_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:grauPart'] = valor },
+        'Nome_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:nomeProf'] = valor },
+        'CRM_ExecutanteDoProcedimento': () => { procedimentoSelecionado['ans:equipeSadt']['ans:numeroConselhoProfissional'] = valor }
     }
+    campos_ProfExec[nomeProcedimento]();
+}
+
+function alteraXmlNaCaixaXmls(icon) {
+    let caixa = obtemCaixaXmlsObjeto();
+    let nome = icon.previousElementSibling.children[0].value;
+    let id = icon.parentElement.dataset.id;
+    let novoNome = nome.replace('.xml', '');
+
+    caixa[id - 1]['nomeDoArquivo'] = novoNome;
+    adicionaCaixaXmlsAoStorage(caixa);
+}

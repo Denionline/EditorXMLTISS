@@ -1,7 +1,8 @@
 /* Estilo do ícone da aba */
 .abaOculta{
     height: 0;
-    display: none;
+    /* display: none; */
+    overflow: hidden;
 }
 
 /* Move a seta da aba para esquerda */

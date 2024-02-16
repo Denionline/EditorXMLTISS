@@ -6,9 +6,7 @@ function adicionaEscutadorBaixarXml() {
     btnToXML.addEventListener('click', () => {
         abreBloqueioTela();
         atualizaDados();
-        transformObjectToXML(
-            obtemCaixaXmlsObjeto()[parseInt(obtemIdNoStorage() - 1)]
-            );
+        transformObjectToXML(obtemObjeto(), obtemNomeDoArquivoNoStorage());
         abrePopUpValidadorXML();
     })
 }

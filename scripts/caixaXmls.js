@@ -83,7 +83,7 @@ function adicionaEscutadorCaixaXmls() {
         btns.addEventListener('click', btn => {
             let caixaXmls = obtemCaixaXmlsObjeto();
             let id = btn.target.parentElement.dataset.id;
-            transformObjectToXML(caixaXmls[id - 1]);
+            transformObjectToXML(caixaXmls[id - 1]['objetoXML'], caixaXmls[id - 1]['nomeDoArquivo'])
         })
     })
 
