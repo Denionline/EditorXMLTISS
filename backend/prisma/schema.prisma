@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ──────────────────────────────────────────────
+// 1) Users
+// ──────────────────────────────────────────────
+model User {
+  id          String    @id @default(uuid())
+  email       String    @unique
+  password    String
+  username    String    @map("username")
+  isActive    Boolean   @default(true) @map("is_active")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  lastLoginAt DateTime? @map("last_login_at")
+
+  // Relations
+  ownedDocuments   Document[]       @relation("DocumentOwner")
+  documentAccess   DocumentAccess[]
+  requestedExports Export[]
+
+  @@map("users")
+}
+
+// ──────────────────────────────────────────────
+// 2) Documents (TISS XML)
+// ──────────────────────────────────────────────
+model Document {
+  id             String         @id @default(uuid())
+  ownerUserId    String         @map("owner_user_id")
+  title          String
+  sourceXml      String         @map("source_xml") @db.Text
+  sourceHash     String?        @map("source_hash")
+  status         DocumentStatus @default(DRAFT)
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  lastExportedAt DateTime?      @map("last_exported_at")
+
+  // Relations
+  owner       User             @relation("DocumentOwner", fields: [ownerUserId], references: [id])
+  access      DocumentAccess[]
+  exports     Export[]
+  validations Validation[]
+
+  @@map("documents")
+}
+
+enum DocumentStatus {
+  DRAFT
+  EXPORTED
+  ARCHIVED
+}
+
+// ──────────────────────────────────────────────
+// 3) Document access / sharing (permissions)
+// ──────────────────────────────────────────────
+model DocumentAccess {
+  documentId String     @map("document_id")
+  userId     String     @map("user_id")
+  role       AccessRole
+  createdAt  DateTime   @default(now()) @map("created_at")
+
+  // Relations
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([documentId, userId])
+  @@map("document_access")
+}
+
+enum AccessRole {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+// ──────────────────────────────────────────────
+// 4) Exports (generated artifacts)
+// ──────────────────────────────────────────────
+model Export {
+  id                String       @id @default(uuid())
+  documentId        String       @map("document_id")
+  requestedByUserId String       @map("requested_by_user_id")
+  exportType        ExportType   @map("export_type")
+  status            ExportStatus @default(QUEUED)
+  createdAt         DateTime     @default(now()) @map("created_at")
+  finishedAt        DateTime?    @map("finished_at")
+  errorMessage      String?      @map("error_message") @db.Text
+  artifactUrl       String?      @map("artifact_url")
+  artifactMimeType  String?      @map("artifact_mime_type")
+  artifactSizeBytes Int?         @map("artifact_size_bytes")
+
+  // Relations
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  requestedBy User     @relation(fields: [requestedByUserId], references: [id])
+
+  @@map("exports")
+}
+
+enum ExportType {
+  XML
+  PDF
+  ZIP
+  OTHER
+}
+
+enum ExportStatus {
+  QUEUED
+  RUNNING
+  SUCCESS
+  FAILED
+}
+
+// ──────────────────────────────────────────────
+// 5) Optional – Validation snapshot (future)
+// ──────────────────────────────────────────────
+model Validation {
+  id          String   @id @default(uuid())
+  documentId  String   @map("document_id")
+  validatedAt DateTime @default(now()) @map("validated_at")
+  isValid     Boolean  @map("is_valid")
+  message     String?  @db.Text
+
+  // Relations
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("validations")
+}
