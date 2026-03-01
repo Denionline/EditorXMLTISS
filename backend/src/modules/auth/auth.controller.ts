@@ -1,17 +1,15 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDTO } from '../user/user.dto';
+import { LocalAuthGuard } from './local-auth.guard';
+import type { User } from 'generated/prisma/client';
 
 @Controller('auth')
 export class AuthController {
 	constructor(private service: AuthService) {}
 
-	@Post('register')
-	register(@Body() dto: CreateUserDTO) {
-		return this.service.register(dto);
-	}
+	@UseGuards(LocalAuthGuard)
 	@Post('login')
-	login(@Body('email') email: string, @Body('password') password: string) {
-		return this.service.login(email, password);
+	login(@Req() req: { user: User }) {
+		return this.service.login(req.user);
 	}
 }

@@ -1,29 +1,31 @@
-import {
-	Injectable,
-	NotFoundException,
-	UnauthorizedException,
-} from '@nestjs/common';
-import { CreateUserDTO } from '../user/user.dto';
+import { Injectable } from '@nestjs/common';
 import { UserService } from '../user/user.service';
+import type { User } from 'generated/prisma/client';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-	constructor(private userService: UserService) {}
+	constructor(
+		private userService: UserService,
+		private jwtService: JwtService,
+	) {}
 
-	async register(dto: CreateUserDTO) {
-		return this.userService.create(dto);
-	}
-	async login(email: string, password: string) {
+	async validateUser(email: string, password: string): Promise<User | null> {
 		const user = await this.userService.getUserByEmail(email);
 
-		if (!user) {
-			throw new NotFoundException();
+		if (user && user.password === password) {
+			return user;
 		}
-
-		if (user.password !== password) {
-			throw new UnauthorizedException();
-		}
+		return null;
 	}
-	// logout() {}
-	// me();
+
+	login(user: User | undefined) {
+		if (!user) {
+			return null;
+		}
+		const payload = { sub: user.id };
+		return {
+			access_token: this.jwtService.sign(payload),
+		};
+	}
 }
