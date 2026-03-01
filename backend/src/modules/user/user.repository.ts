@@ -1,37 +1,40 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from 'generated/prisma/client';
+import { Prisma, User } from 'generated/prisma/client';
 import { PrismaService } from 'src/shared/prisma/prisma.service';
+
+export type SafeUser = Omit<User, 'password_hash'>;
 
 const SafeSelect = {
 	id: true,
-	username: true,
 	email: true,
+	username: true,
+	isActive: true,
+	createdAt: true,
+	lastLoginAt: true,
 };
 
 @Injectable()
 export class UserRepository {
 	constructor(private prisma: PrismaService) {}
 
-	findByEmail(email: string) {
+	findByEmail(email: string): Promise<User | null> {
 		return this.prisma.user.findUnique({
 			where: {
 				email,
 			},
 		});
 	}
-	findById(id: string) {
+	findById(id: string): Promise<User | null> {
 		return this.prisma.user.findUnique({
 			where: { id },
-			select: SafeSelect,
 		});
 	}
-	create(data: Prisma.UserCreateInput) {
+	create(data: Prisma.UserCreateInput): Promise<User> {
 		return this.prisma.user.create({
 			data,
-			select: SafeSelect,
 		});
 	}
-	update(id: string, data: Prisma.UserUpdateInput) {
+	update(id: string, data: Prisma.UserUpdateInput): Promise<SafeUser | null> {
 		return this.prisma.user.update({
 			where: {
 				id,

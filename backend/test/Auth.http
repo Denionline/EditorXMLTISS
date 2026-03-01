@@ -1,13 +1,13 @@
 @baseurl = http://localhost:3000/api
 
-# POST {{baseurl}}/auth/register
-# Content-Type: application/json
+POST {{baseurl}}/auth/register
+Content-Type: application/json
 
-# {
-# 	"username": "user1",
-# 	"email": "user1@email.com",
-# 	"password": "user1"
-# }
+{
+	"username": "user2",
+	"email": "user2@email.com",
+	"password": "user2"
+}
 
 ###
 
@@ -15,6 +15,16 @@ POST {{baseurl}}/auth/login
 Content-Type: application/json
 
 {
-	"email": "user1@email.com",
-	"password": "user1"
+	"email": "user2@email.com",
+	"password": "user2"
 }
+
+###
+
+POST {{baseurl}}/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQ2ODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyMzg2NzYwLCJleHAiOjE3NzIzODY4MjB9.nR1As7e1F_1KiPxAs1hb4cyDoQ3TD_ng9Dkp-f_lvV4
+
+###
+
+POST {{baseurl}}/auth/refresh
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQ2ODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyMzg2NzYwLCJleHAiOjE3NzIzODY4MjB9.nR1As7e1F_1KiPxAs1hb4cyDoQ3TD_ng9Dkp-f_lvV4
