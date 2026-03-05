@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Post,
+	Req,
+	Res,
+	UnauthorizedException,
+	UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import type { User } from 'generated/prisma/client';
@@ -8,7 +16,7 @@ import { JwtAuthGuard } from './jwt--auth.guard';
 
 @Controller('auth')
 export class AuthController {
-	constructor(private service: AuthService) { }
+	constructor(private service: AuthService) {}
 
 	private setRefreshToken(res: Response, token: string | undefined) {
 		res.cookie('refresh_token', token, {
@@ -43,20 +51,18 @@ export class AuthController {
 		return user;
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Post('refresh')
-	refresh(
-		@Req() req: { cookies: { refresh_token: string } },
-		@Res({ passthrough: true }) res: Response,
-	) {
-		const refreshToken = req.cookies['refresh_token'];
-		const { access_token } = this.service.refresh(refreshToken);
+	async refresh(@Req() req: Request) {
+		const refreshToken = req.cookies?.['refresh_token'] as string | undefined;
 
-		this.setRefreshToken(res, access_token);
+		if (!refreshToken) {
+			throw new UnauthorizedException('Refresh token not found');
+		}
+
+		const { access_token } = await this.service.refresh(refreshToken);
 		return { access_token };
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Post('logout')
 	logout(@Res({ passthrough: true }) res: Response) {
 		res.clearCookie('refresh_token');

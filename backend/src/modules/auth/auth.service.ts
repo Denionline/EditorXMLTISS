@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import type { User } from 'generated/prisma/client';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from '../user/user.dto';
+import { jwtSecrect } from './strategies/jwt.strategy';
 
 @Injectable()
 export class AuthService {
@@ -31,22 +32,32 @@ export class AuthService {
 	} {
 		const payload = { sub: user.id, username: user.username };
 
-		const access_token = this.jwtService.sign(payload, { expiresIn: '60s' });
-		const refresh_token = this.jwtService.sign(payload, { expiresIn: '1d' });
+		const access_token = this.jwtService.sign(payload, { expiresIn: '15m' });
+		const refresh_token = this.jwtService.sign(payload, { expiresIn: '7d' });
 
 		return { access_token, refresh_token };
 	}
 
-	refresh(refresh_token: string) {
-		const payload: {
-			sub: string;
-			username: string;
-		} = this.jwtService.verify(refresh_token);
+	async refresh(refresh_token: string) {
+		try {
+			const payload: { sub: string; username: string } =
+				await this.jwtService.verifyAsync(refresh_token, {
+					secret: jwtSecrect,
+				});
 
-		const newAccessToken = this.jwtService.sign(
-			{ sub: payload.sub, username: payload.username },
-			{ expiresIn: '60s' },
-		);
-		return { access_token: newAccessToken };
+			if (!payload) {
+				throw new UnauthorizedException('Invalid refresh token');
+			}
+
+			const user = await this.userService.getUserById(payload.sub);
+
+			if (!user) {
+				throw new UnauthorizedException('User not found');
+			}
+
+			return this.getTokens(user);
+		} catch {
+			throw new UnauthorizedException('Invalid or expired refresh token');
+		}
 	}
 }

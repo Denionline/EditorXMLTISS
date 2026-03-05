@@ -18,6 +18,14 @@ export class UserService {
 		}
 		return user;
 	}
+	async getUserById(id: string): Promise<User | null> {
+		const user = await this.repo.findById(id);
+
+		if (!user) {
+			throw new NotFoundException();
+		}
+		return user;
+	}
 	async update(id: string, dto: UpdateUserDTO) {
 		return await this.repo.update(id, dto);
 	}
