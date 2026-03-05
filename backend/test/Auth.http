@@ -1,5 +1,5 @@
 @baseurl = http://localhost:3000/api
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQ2ODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyNjQ1NjYzLCJleHAiOjE3NzI2NDU3MjN9.vHOSp8exoVdy4bIBZFSM8uguY5BynT3umHBp2eUBM0Q
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQ2ODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyNzE3MDgxLCJleHAiOjE3NzI3MTc5ODF9.9MTD4VO-GIm-TMwss8-00x1lT4KTNY7EWXV6zriYx2o
 
 POST {{baseurl}}/auth/register
 Content-Type: application/json
@@ -23,9 +23,11 @@ Content-Type: application/json
 ###
 
 POST {{baseurl}}/auth/profile
+Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyNzE3NTA5LCJleHAiOjE3NzMzMjIzMDl9.9yL18RycflYIQooA5oXOJYGDoR6q92Prz_UCMp1Ne5c; Max-Age=604800; Path=/; Expires=Thu, 12 Mar 2026 13:31:49 GMT; HttpOnly; SameSite=Strict
 Authorization: Bearer {{token}}
 
 ###
 
 POST {{baseurl}}/auth/refresh
+Cookie: refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiMzc4MTE3YS05NjhlLTQODAtOWQ2MC1lNzI0YWMyOTFjOTciLCJ1c2VybmFtZSI6InVzZXIyIiwiaWF0IjoxNzcyNzE3NTA5LCJleHAiOjE3NzMzMjIzMDl9.9yL18RycflYIQooA5oXOJYGDoR6q92Prz_UCMp1Ne5c; Max-Age=604800; Path=/; Expires=Thu, 12 Mar 2026 13:31:49 GMT; HttpOnly; SameSite=Strict
 Authorization: Bearer {{token}}
