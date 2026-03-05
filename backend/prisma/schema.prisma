@@ -18,13 +18,13 @@ datasource db {
 // 1) Users
 // ──────────────────────────────────────────────
 model User {
-  id          String    @id @default(uuid())
-  email       String    @unique
-  password    String
-  username    String    @map("username")
-  isActive    Boolean   @default(true) @map("is_active")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  lastLoginAt DateTime? @map("last_login_at")
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password_hash String
+  username      String    @map("username")
+  isActive      Boolean   @default(true) @map("is_active")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  lastLoginAt   DateTime? @map("last_login_at")
 
   // Relations
   ownedDocuments   Document[]       @relation("DocumentOwner")
