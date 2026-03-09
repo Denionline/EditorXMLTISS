@@ -1,0 +1,6 @@
+[submodule "editorxmltiss-frontend"]
+	path = editorxmltiss-frontend
+	url = git@github.com:Denionline/editorxmltiss-frontend.git
+[submodule "editorxmltiss-backend"]
+	path = editorxmltiss-backend
+	url = git@github.com:Denionline/editorxmltiss-backend.git
